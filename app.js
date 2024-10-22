@@ -2,20 +2,19 @@ document.addEventListener("DOMContentLoaded", function () {
     const busList = document.getElementById("bus-list");
     const alertList = document.getElementById("alert-list");
 
-    // Inicializar el mapa con Leaflet
     const map = L.map('map-container').setView([4.60971, -74.08175], 12);
 
-    // Agregar capa de mapas (OpenStreetMap)
+
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 18,
         attribution: '© OpenStreetMap contributors'
     }).addTo(map);
 
-    // Función para simular la posición de los buses en el mapa
+
     let busMarkers = [];
 
     function updateBusPositions(buses) {
-        // Limpiar marcadores existentes
+
         busMarkers.forEach(marker => map.removeLayer(marker));
         busMarkers = [];
 
@@ -33,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Función para generar datos aleatorios de buses
+
     function generateRandomBusData() {
         const routes = ["A12", "B24", "C18", "D34", "E27"];
         const locations = ["Calle 45", "Avenida Caracas", "Carrera 30", "Calle 72", "Calle 100"];
@@ -56,14 +55,14 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         busList.innerHTML = buses.map(bus => `
             <div class="bus-item">
-                <p>Ruta: ${bus.route}</p>
+                <br><p>Ruta: ${bus.route}</p>
                 <p>Ubicación: ${bus.location}</p>
                 <p>Próxima parada: ${bus.nextStop}</p>
             </div>
         `).join("");
     }
 
-    // Función para generar alertas aleatorias
+
     function generateRandomAlerts() {
         const messages = [
             "Retraso en la ruta A12 debido a tráfico pesado.",
@@ -80,7 +79,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return alerts;
     }
 
-    // Función para mostrar las alertas generadas
+
     function displayAlerts(alerts) {
         if (alerts.length === 0) {
             alertList.innerHTML = "<p>Sin alertas actuales.</p>";
@@ -93,19 +92,18 @@ document.addEventListener("DOMContentLoaded", function () {
         `).join("");
     }
 
-    // Función para actualizar los datos ficticios
     function updateFakeData() {
         const buses = generateRandomBusData();
         const alerts = generateRandomAlerts();
 
         displayBusInfo(buses);
         displayAlerts(alerts);
-        updateBusPositions(buses); // Actualizar posiciones en el mapa
+        updateBusPositions(buses); 
     }
 
-    // Actualizar la información cada 30 segundos
+
     setInterval(updateFakeData, 30000);
 
-    // Cargar los datos iniciales
+
     updateFakeData();
 });
